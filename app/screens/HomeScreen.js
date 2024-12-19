@@ -1,36 +1,28 @@
 import React from 'react';
-import { View, Text, Button, FlatList, Image } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import recipes from '../assets/recipes.js';
-import {ListItem} from "react-native-elements"; // Załaduj dane przepisy
 
 export default function HomeScreen({ navigation }) {
-
-    // Funkcja obsługująca kliknięcie przycisku "View Recipe"
     const viewRecipe = (recipeName) => {
         navigation.navigate("Details", { recipeName });
     };
 
-    // Funkcja renderująca każdy element listy
     const renderItem = ({ item }) => (
-        <ListItem style={{ flexDirection: 'row', padding: 10, borderBottomWidth: 1 }}>
+        <View style={{ flexDirection: 'row', padding: 10, borderBottomWidth: 1, alignItems: 'center' }}>
             <Image
                 source={{ uri: item.image }}
                 style={{ width: 60, height: 60, borderRadius: 10 }}
             />
-
             <View style={{ flex: 1, marginLeft: 10 }}>
                 <Text style={{ fontWeight: 'bold' }}>{item.name}</Text>
                 <Text>{item.time}</Text>
             </View>
-
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Button
-                    title="View Recipe"
-                    onPress={() => viewRecipe(item.name)}
-                    color="#1E90FF"
-                />
-            </View>
-        </ListItem>
+            <TouchableOpacity onPress={() => viewRecipe(item.name)}>
+                <View style={{ paddingHorizontal: 10, paddingVertical: 5, backgroundColor: '#1E90FF', borderRadius: 5 }}>
+                    <Text style={{ color: '#fff', fontWeight: 'bold' }}>View Recipe</Text>
+                </View>
+            </TouchableOpacity>
+        </View>
     );
 
     return (
